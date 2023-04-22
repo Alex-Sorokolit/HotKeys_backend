@@ -7,6 +7,8 @@ const recipesRouter = require("./recipesRoutes");
 const searchRouter = require("./searchRoutes");
 const shoppintListRouter = require("./shoppintListRoutes");
 
+const hotKeyRouter = require("./hotKeyRouter");
+
 module.exports = {
   authRouter,
   favoritesRouter,
@@ -16,4 +18,6 @@ module.exports = {
   recipesRouter,
   searchRouter,
   shoppintListRouter,
+
+  hotKeyRouter,
 };

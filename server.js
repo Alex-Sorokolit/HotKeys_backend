@@ -11,6 +11,8 @@ const {
   popularRecipeRouter,
   ownRecipesRouter,
   favoritesRouter,
+
+  hotKeyRouter,
 } = require("./routes");
 
 require("colors");
@@ -29,13 +31,15 @@ app.use(cors());
 
 // set routes ________________________________
 app.use("/api/v1", authRouter);
-app.use("/api/v1", recipesRouter);
-app.use("/api/v1", ownRecipesRouter);
-app.use("/api/v1", ingredientsRouter);
-app.use("/api/v1", searchRouter);
-app.use("/api/v1", shoppintListRouter);
-app.use("/api/v1", favoritesRouter);
-app.use("/api/v1", popularRecipeRouter);
+app.use("./api/v1", hotKeyRouter);
+
+// app.use("/api/v1", recipesRouter);
+// app.use("/api/v1", ownRecipesRouter);
+// app.use("/api/v1", ingredientsRouter);
+// app.use("/api/v1", searchRouter);
+// app.use("/api/v1", shoppintListRouter);
+// app.use("/api/v1", favoritesRouter);
+// app.use("/api/v1", popularRecipeRouter);
 
 // Catch Errors ______________________________
 // обробка помилки 404
