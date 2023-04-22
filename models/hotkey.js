@@ -4,7 +4,7 @@ const Joi = require("joi");
 // mongoos схема перевіряє дані які зберігаються в базу даних
 const hotkeySchema = Schema(
   {
-    category: { type: Schema.Types.ObjectId, ref: "user", required: true },
+    category: { type: Schema.Types.ObjectId, ref: "category", required: true }, // тут буде зберігатися id категорії, ref це колекція
 
     shortcut: {
       type: String,

@@ -15,8 +15,4 @@ hotKeyRouter.post("/hotkeys", authenticate);
 
 // Отримати всі категорії користувача
 
-// Додати категорію
-
-// Видалити категорію
-
 module.exports = hotKeyRouter;
