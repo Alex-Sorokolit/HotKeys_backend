@@ -58,10 +58,10 @@ class OwnRecipesController {
       throw new Error("Controller: recipeId is required");
     }
 
-    if (!userId) {
-      res.status(400);
-      throw new Error("Controller: user not authorized");
-    }
+    // if (!userId) {
+    //   res.status(400);
+    //   throw new Error("Controller: user not authorized");
+    // }
 
     // знайти рецепт по id і перевірити чи належить цей рецепт користувачу
     const result = await Recipe.findOne({ _id: recipeId, owner: userId });

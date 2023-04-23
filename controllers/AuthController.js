@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const gravatar = require("gravatar");
 require("dotenv").config();
 const { User } = require("../models/user");
+const cloudinary = require("cloudinary").v2;
 
 const { HttpError, sendEmail } = require("../helpers");
 
@@ -191,6 +192,7 @@ class AuthController {
     res.status(200).json({ name, email, avatarURL, updatedAt });
   }
 
+  // 🔄️ Update Avatar
   async updateAvatar(req, res) {
     const { _id: id } = req.user;
 
@@ -198,9 +200,11 @@ class AuthController {
       res.status(400);
       throw new Error("Controller: Image require");
     }
-    const { path } = req.file;
 
-    await User.findByIdAndUpdate(id, { avatarURL: path });
+    const { path } = req.file;
+    const fileName = req.file.filename;
+
+    await User.findByIdAndUpdate(id, { avatarURL: path, imageId: fileName });
 
     res.status(200).json({ avatarURL: path });
   }
@@ -229,6 +233,35 @@ class AuthController {
 
     res.status(200).json({
       subscriptionEmail: user.subscription.email,
+    });
+  }
+
+  //  ❌ Delete user
+  async removeUser(req, res) {
+    const { _id: userId } = req.user;
+
+    // Шукаємо користувача по id
+    const user = await User.findById(userId);
+
+    // Видалення аватарки з Cloudinary
+    if (user.avatarURL && user.imageId) {
+      const publicId = user.imageId;
+      await cloudinary.uploader.destroy(publicId);
+    }
+
+    // Видалення користувача
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      res.status(400);
+      throw new Error("Controller: User not deleted");
+    }
+
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "User deleted",
+      data: deletedUser,
     });
   }
 }

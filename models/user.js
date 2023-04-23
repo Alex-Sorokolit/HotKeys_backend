@@ -30,12 +30,10 @@ const userSchema = new Schema(
       type: String,
       // required: true,
     },
-    favorites: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Recipe",
-      },
-    ],
+    imageId: {
+      type: String,
+      // required: true,
+    },
     subscription: {
       email: {
         type: String,
@@ -48,19 +46,6 @@ const userSchema = new Schema(
         default: false,
       },
     },
-    shoppingList: [
-      {
-        _id: {
-          type: Schema.Types.ObjectId,
-          ref: "Ingredient",
-          required: true,
-        },
-        measure: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
   },
   { versionKey: false, timestamps: true }
 );
@@ -119,20 +104,10 @@ const subscriptionSchema = Joi.object({
     }),
 });
 
-const updateFavoritesSchema = Joi.object({
-  favorites: Joi.object({
-    recipe: Joi.object(),
-  }),
-  shoppingList: Joi.object({
-    ingredient: Joi.object(),
-  }),
-});
-
 const schemas = {
   registerSchema,
   loginSchema,
   updateUserSchema,
-  updateFavoritesSchema,
   subscriptionSchema,
 };
 
