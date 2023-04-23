@@ -1,7 +1,7 @@
 const { Category } = require("../models/category");
 
 class CategoryController {
-  // Додати категорію
+  // ✅ Додати категорію
   async addCategory(req, res) {
     const { title } = req.body;
     if (!title) {
@@ -29,7 +29,7 @@ class CategoryController {
     });
   }
 
-  // Видалити категорію
+  // ❌ Видалити категорію
   async removeCategory(req, res) {
     const { id: categoryId } = req.params;
     const { _id: userId } = req.user;
@@ -51,11 +51,12 @@ class CategoryController {
     res.status(200).json({
       status: "success",
       code: 200,
-      message: "Category deleted",
+      message: "CategoryRecipe deleted",
       data: result,
     });
   }
-  // Отримати список всіх категорій
+
+  // ⏹️ Отримати список всіх категорій
   async getAllCategories(req, res) {
     const { _id: userId } = req.user;
 

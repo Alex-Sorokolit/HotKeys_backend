@@ -4,14 +4,14 @@ const connectDb = require("./config/db");
 const logger = require("morgan");
 const {
   authRouter,
-  recipesRouter,
-  ingredientsRouter,
-  searchRouter,
-  shoppintListRouter,
-  popularRecipeRouter,
-  ownRecipesRouter,
-  favoritesRouter,
-
+  // recipesRouter,
+  // ingredientsRouter,
+  // searchRouter,
+  // shoppintListRouter,
+  // popularRecipeRouter,
+  // ownRecipesRouter,
+  // favoritesRouter,
+  categoryRouter,
   hotKeyRouter,
 } = require("./routes");
 
@@ -31,8 +31,8 @@ app.use(cors());
 
 // set routes ________________________________
 app.use("/api/v1", authRouter);
+app.use("./api/v1", categoryRouter);
 app.use("./api/v1", hotKeyRouter);
-
 // app.use("/api/v1", recipesRouter);
 // app.use("/api/v1", ownRecipesRouter);
 // app.use("/api/v1", ingredientsRouter);
