@@ -8,6 +8,7 @@ const categorySchema = Schema(
       type: String,
       require: [true, "DB: title is required"],
     },
+    owner: { type: Schema.Types.ObjectId, ref: "user", required: true }, // тут буде зберігатися id користувача який додав контакт у базу, ref це колекція
   },
   { versionKey: false, timestamps: true }
 );
