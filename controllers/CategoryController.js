@@ -39,18 +39,11 @@ class CategoryController {
       throw new Error("Controller: categoryId is required");
     }
 
-    if (!userId) {
-      res.status(400);
-      throw new Error("Controller: user not authorized");
-    }
-
-    // знайти категорію по id і перевірити чи належить цей вона користувачу
-    const result = await Category.findOne({ _id: categoryId, owner: userId });
-
-    // ❌ видалити всі хоткеї даної категорії
+    // знайти категорію по id і перевірити чи належить вона користувачу
+    const category = await Category.findOne({ _id: categoryId, owner: userId });
 
     // перевірка чи видалився документ із бази даних
-    if (!result) {
+    if (!category) {
       res.status(400);
       throw new Error("Controller: Category not found");
     }
@@ -58,7 +51,7 @@ class CategoryController {
     res.status(200).json({
       status: "success",
       code: 200,
-      message: "Recipe deleted",
+      message: "Category deleted",
       data: result,
     });
   }

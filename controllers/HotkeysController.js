@@ -1,7 +1,7 @@
 const { HotKey } = require("../models/hotkey");
 
 class HotKeyController {
-  // Додавання hotkey
+  // ✅ Додавання hotkey
   async addHotkey(req, res) {
     const { category, shortcut, description } = req.body;
 
@@ -30,7 +30,7 @@ class HotKeyController {
     });
   }
 
-  // Видалення hotkey
+  // ❌ Видалення hotkey
   async removeHotKey(req, res) {
     const { id: hotkeyId } = req.params;
     const { _id: userId } = req.user;
@@ -38,11 +38,6 @@ class HotKeyController {
     if (!hotkeyId) {
       res.status(400);
       throw new Error("Controller: hotkeyId is required");
-    }
-
-    if (!userId) {
-      res.status(400);
-      throw new Error("Controller: user not authorized");
     }
 
     // знайти документ по id і перевірити чи належить він користувачу
@@ -65,7 +60,7 @@ class HotKeyController {
     });
   }
 
-  // Редагування hotkey
+  // 🟨 Редагування hotkey
   async updateHotkey(req, res) {
     const { id: hotkeyId } = req.params;
     const { _id: userId } = req.user;
@@ -73,11 +68,6 @@ class HotKeyController {
     if (!hotkeyId) {
       res.status(400);
       throw new Error("Controller: hotkeyId is required");
-    }
-
-    if (!userId) {
-      res.status(400);
-      throw new Error("Controller: user not authorized");
     }
 
     // якщо користувач змінив одне із полів то знайти в базі і обновити
@@ -105,7 +95,7 @@ class HotKeyController {
     });
   }
 
-  // Отримати всі hotkey by user
+  // ⏹️ Отримати всі hotkey by user
   async getAllHotKeys(req, res) {
     const { _id: userId } = req.user;
     const result = await HotKey.find({ owner: userId });
@@ -121,6 +111,30 @@ class HotKeyController {
       message: "Own HotKeys",
       data: result,
       quantity: result.length,
+    });
+  }
+
+  // ❌ видалити всі hotkeys даної категорії
+  async removeAllbyCategory(req, res) {
+    const { id: categoryId } = req.params;
+    const { _id: userId } = req.user;
+
+    if (!categoryId) {
+      res.status(400);
+      throw new Error("Controller: categoryId is required");
+    }
+    // знайти hotkeys по id категорії і перевірити чи належить вона користувачу
+    const result = await HotKey.find({ category: categoryId, owner: userId });
+
+    if (!result) {
+      res.status(400);
+      throw new Error("Controller: HotKeys not found");
+    }
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "HotKeys deleted",
+      data: result,
     });
   }
 }
