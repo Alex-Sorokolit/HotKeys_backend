@@ -31,12 +31,12 @@ class CategoryController {
 
   // Видалити категорію
   async removeCategory(req, res) {
-    const { id: hotkeyId } = req.params;
+    const { id: categoryId } = req.params;
     const { _id: userId } = req.user;
 
-    if (!hotkeyId) {
+    if (!categoryId) {
       res.status(400);
-      throw new Error("Controller: hotkeyId is required");
+      throw new Error("Controller: categoryId is required");
     }
 
     if (!userId) {
@@ -45,9 +45,11 @@ class CategoryController {
     }
 
     // знайти категорію по id і перевірити чи належить цей вона користувачу
-    const result = await Category.findOne({ _id: hotkeyId, owner: userId });
+    const result = await Category.findOne({ _id: categoryId, owner: userId });
 
-    // перевірка чи додався документ у базу даних
+    // ❌ видалити всі хоткеї даної категорії
+
+    // перевірка чи видалився документ із бази даних
     if (!result) {
       res.status(400);
       throw new Error("Controller: Category not found");
@@ -57,7 +59,7 @@ class CategoryController {
       status: "success",
       code: 200,
       message: "Recipe deleted",
-      data: deletedRecipe,
+      data: result,
     });
   }
   // Отримати список всіх категорій
