@@ -4,6 +4,7 @@ const { authenticate, isValidId } = require("../middlewares");
 const {
   CategoryCtrl: { addCategory, removeCategory, getAllCategories },
 } = require("../controllers");
+
 // Створення роутера
 const categoryRouter = express.Router();
 

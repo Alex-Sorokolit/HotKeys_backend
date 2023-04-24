@@ -7,7 +7,7 @@ const cloudinary = require("cloudinary").v2;
 
 const { HttpError, sendEmail } = require("../helpers");
 
-const subscribeLetter = require("../letters/subscribeLetter");
+// const subscribeLetter = require("../letters/subscribeLetter");
 
 const { SECRET_KEY } = process.env;
 
@@ -209,32 +209,32 @@ class AuthController {
     res.status(200).json({ avatarURL: path });
   }
 
-  async subscription(req, res) {
-    const { _id: id } = req.user;
-    const { email } = req.body;
+  // async subscription(req, res) {
+  //   const { _id: id } = req.user;
+  //   const { email } = req.body;
 
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        subscription: { email, isSubscribe: true },
-      },
-      {
-        new: true,
-      }
-    );
+  //   const user = await User.findByIdAndUpdate(
+  //     id,
+  //     {
+  //       subscription: { email, isSubscribe: true },
+  //     },
+  //     {
+  //       new: true,
+  //     }
+  //   );
 
-    const verifyEmail = {
-      to: email,
-      subject: "SoYummy subscription",
-      html: subscribeLetter(),
-    };
+  //   const verifyEmail = {
+  //     to: email,
+  //     subject: "SoYummy subscription",
+  //     html: subscribeLetter(),
+  //   };
 
-    await sendEmail(verifyEmail);
+  //   await sendEmail(verifyEmail);
 
-    res.status(200).json({
-      subscriptionEmail: user.subscription.email,
-    });
-  }
+  //   res.status(200).json({
+  //     subscriptionEmail: user.subscription.email,
+  //   });
+  // }
 
   //  ❌ Delete user
   async removeUser(req, res) {
