@@ -17,6 +17,12 @@ const hotKeyRouter = express.Router();
 // ✅ Додавання hotkey
 hotKeyRouter.post("/hotkeys", authenticate, asyncHandler(addHotkey));
 // ❌ Видалення hotkey by id
+hotKeyRouter.delete(
+  "/hotkeys/:id",
+  authenticate,
+  isValidId,
+  asyncHandler(removeHotKey)
+);
 // 🟨 Редагування hotkey by id
 // ⏹️ Отримати всі hotkey by user
 // ❌ видалити всі hotkeys даної категорії

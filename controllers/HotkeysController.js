@@ -41,7 +41,7 @@ class HotKeyController {
     }
 
     // знайти документ по id і перевірити чи належить він користувачу
-    const result = await HotKey.findOne({
+    const result = await HotKey.findOneAndDelete({
       _id: hotkeyId,
       owner: userId,
     });
