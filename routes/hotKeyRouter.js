@@ -32,7 +32,16 @@ hotKeyRouter.put(
   isValidId,
   asyncHandler(updateHotkey)
 );
+
 // ⏹️ Отримати всі hotkey by user
+hotKeyRouter.get("/hotkeys", authenticate, asyncHandler(getAllHotKeys));
+
 // ❌ видалити всі hotkeys даної категорії
+hotKeyRouter.delete(
+  "/hotkeys/category/:id",
+  authenticate,
+  isValidId,
+  asyncHandler(removeAllbyCategory)
+);
 
 module.exports = hotKeyRouter;

@@ -131,7 +131,10 @@ class HotKeyController {
       throw new Error("Controller: categoryId is required");
     }
     // знайти hotkeys по id категорії і перевірити чи належить вона користувачу
-    const result = await HotKey.find({ category: categoryId, owner: userId });
+    const result = await HotKey.deleteMany({
+      category: categoryId,
+      owner: userId,
+    });
 
     if (!result) {
       res.status(400);
