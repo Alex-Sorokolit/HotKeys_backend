@@ -32,7 +32,7 @@ class CategoryController {
   // ❌ Видалити категорію
   async removeCategory(req, res) {
     const { id: categoryId } = req.params;
-    const { _id: userId } = req.user;
+    const { _id: owner } = req.user;
 
     if (!categoryId) {
       res.status(400);
@@ -40,10 +40,13 @@ class CategoryController {
     }
 
     // знайти категорію по id і перевірити чи належить вона користувачу
-    const category = await Category.findOne({ _id: categoryId, owner: userId });
+    const result = await Category.findOneAndDelete({
+      _id: categoryId,
+      owner,
+    });
 
     // перевірка чи видалився документ із бази даних
-    if (!category) {
+    if (!result) {
       res.status(400);
       throw new Error("Controller: Category not found");
     }
