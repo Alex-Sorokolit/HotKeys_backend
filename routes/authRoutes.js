@@ -13,6 +13,7 @@ const {
     updateAvatar,
     subscription,
     googleAuth,
+    removeUser,
   },
 } = require("../controllers");
 
@@ -27,7 +28,7 @@ const {
 
 const cloudOptions = {
   fieldname: "avatar",
-  destFolder: "avatars",
+  destFolder: "HotKeys/avatars",
   transformation: {
     width: 100,
     height: 100,
@@ -96,5 +97,8 @@ authRouter.post(
   validateBody(schemas.subscriptionSchema),
   ctrlWrapper(subscription)
 );
+
+// Delete User
+authRouter.delete("/auth/user/remove", authenticate, ctrlWrapper(removeUser));
 
 module.exports = authRouter;

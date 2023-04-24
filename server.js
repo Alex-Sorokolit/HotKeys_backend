@@ -2,16 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDb = require("./config/db");
 const logger = require("morgan");
-const {
-  authRouter,
-  recipesRouter,
-  ingredientsRouter,
-  searchRouter,
-  shoppintListRouter,
-  popularRecipeRouter,
-  ownRecipesRouter,
-  favoritesRouter,
-} = require("./routes");
+const { authRouter, categoryRouter, hotKeyRouter } = require("./routes");
 
 require("colors");
 require("dotenv").config();
@@ -29,13 +20,8 @@ app.use(cors());
 
 // set routes ________________________________
 app.use("/api/v1", authRouter);
-app.use("/api/v1", recipesRouter);
-app.use("/api/v1", ownRecipesRouter);
-app.use("/api/v1", ingredientsRouter);
-app.use("/api/v1", searchRouter);
-app.use("/api/v1", shoppintListRouter);
-app.use("/api/v1", favoritesRouter);
-app.use("/api/v1", popularRecipeRouter);
+app.use("/api/v1", categoryRouter);
+app.use("/api/v1", hotKeyRouter);
 
 // Catch Errors ______________________________
 // обробка помилки 404
