@@ -6,8 +6,10 @@ const {
 } = require("../controllers");
 // Створення роутера
 const categoryRouter = express.Router();
+
 // ✅ Додати категорію
 categoryRouter.post("/categories", authenticate, asyncHandler(addCategory));
+
 // ❌ Видалити категорію
 categoryRouter.delete(
   "/categories/:id",
@@ -15,6 +17,7 @@ categoryRouter.delete(
   isValidId,
   asyncHandler(removeCategory)
 );
-// ⏹️ Отримати список всіх категорій
 
+// ⏹️ Отримати список всіх категорій
+categoryRouter.get("/categories", authenticate, asyncHandler(getAllCategories));
 module.exports = categoryRouter;
