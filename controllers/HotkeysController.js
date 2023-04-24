@@ -79,9 +79,16 @@ class HotKeyController {
       throw new Error("Controller: Please provide fields for update");
     }
 
-    const result = await HotKey.findByIdAndUpdate(hotkeyId, changedFields, {
-      new: true,
-    });
+    const result = await HotKey.findOneAndUpdate(
+      {
+        _id: hotkeyId,
+        owner: userId,
+      },
+      changedFields,
+      {
+        new: true,
+      }
+    );
 
     // перевірка чи оновився документ у базі даних
     if (!result) {
