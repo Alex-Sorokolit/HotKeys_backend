@@ -11,7 +11,6 @@ const {
     getCurrentUser,
     updateUser,
     updateAvatar,
-    subscription,
     googleAuth,
     removeUser,
   },
@@ -88,14 +87,6 @@ authRouter.patch(
   authenticate,
   uploadCloud(cloudOptions),
   ctrlWrapper(updateAvatar)
-);
-
-// Subscription
-authRouter.post(
-  "/auth/subscription",
-  authenticate,
-  validateBody(schemas.subscriptionSchema),
-  ctrlWrapper(subscription)
 );
 
 // Delete User

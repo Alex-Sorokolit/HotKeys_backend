@@ -41,7 +41,7 @@ class HotKeyController {
     }
 
     // знайти документ по id і перевірити чи належить він користувачу
-    const result = await HotKey.findOne({
+    const result = await HotKey.findOneAndDelete({
       _id: hotkeyId,
       owner: userId,
     });
@@ -79,9 +79,16 @@ class HotKeyController {
       throw new Error("Controller: Please provide fields for update");
     }
 
-    const result = await HotKey.findByIdAndUpdate(hotkeyId, changedFields, {
-      new: true,
-    });
+    const result = await HotKey.findOneAndUpdate(
+      {
+        _id: hotkeyId,
+        owner: userId,
+      },
+      changedFields,
+      {
+        new: true,
+      }
+    );
 
     // перевірка чи оновився документ у базі даних
     if (!result) {
@@ -124,7 +131,10 @@ class HotKeyController {
       throw new Error("Controller: categoryId is required");
     }
     // знайти hotkeys по id категорії і перевірити чи належить вона користувачу
-    const result = await HotKey.find({ category: categoryId, owner: userId });
+    const result = await HotKey.deleteMany({
+      category: categoryId,
+      owner: userId,
+    });
 
     if (!result) {
       res.status(400);
