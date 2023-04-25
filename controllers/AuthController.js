@@ -5,7 +5,7 @@ require("dotenv").config();
 const { User } = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 
-const { HttpError, sendEmail } = require("../helpers");
+const { HttpError } = require("../helpers");
 
 const { SECRET_KEY } = process.env;
 
